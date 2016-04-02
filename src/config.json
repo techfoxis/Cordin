@@ -1,0 +1,6 @@
+{"name":"Bot",
+"authentication_method":"oauth",
+"token":null,
+"email":null,
+"password":null,
+"command_identifier":"!"}

@@ -1,0 +1,31 @@
+{
+  "name": "cordin",
+  "version": "0.0.1",
+  "description": "A framework for creating Discord bots.",
+  "bin": {
+    "cordin": "./main.js"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techfoxis/Cordin.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "framework"
+  ],
+  "author": "Techfoxis",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/techfoxis/Cordin/issues"
+  },
+  "homepage": "https://github.com/techfoxis/Cordin#readme",
+  "dependencies": {
+    "discord.js": "^6.1.0",
+    "terminal-colors": "^0.1.4"
+  }
+}
