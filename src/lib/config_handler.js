@@ -1,19 +1,26 @@
 'use strict'
 
 var fs = require('fs');
-var logger = require('./log_handler.js').log;
+var eventer = require('./event_handler').eventer;
+var log = require('./log_handler').log;
 
 let main = {
 	
-	config: {},
+	config: null,
+	response: new Array(),
 
 	init() {
 
 		if(fs.existsSync('./config.json')) {
-			logger('warn', 'config.json already exists!', 'You can delete it and rerun the command for a clean slate.');
+			log({
+					type: 'warn',
+					content: 'config.json already exists!',
+					details: 'You can delete it and rerun the command for a clean slate.'
+				});
 			process.exit();
 		}
 
+		this.config = {};
 		this.config.name = 'Bot'
 		this.config.authentication_method = 'oauth';
 		this.config.token = null;
@@ -27,19 +34,22 @@ let main = {
 	},
 
 	load() {
+		if(!fs.existsSync('./config.json')) this.init();
+
 		let data = fs.readFileSync('./config.json', 'utf8');
 		this.config = JSON.parse(data);
-
-		logger('success', 'Configuration file successfully loaded!', null, 'Config Handler');
-
-		return this.config;
 	},
 
 	save() {
-		let data = JSON.stringify(this.config);
-		data = data.split(',');
-		data = data.join(',\n');
+		let data = JSON.stringify(this.config, 2).split(',').join(',\n');
+console.log(data)
 		fs.writeFileSync('./config.json', data);
+		log({
+			type: 'warn',
+			content: 'Your config.json was saved',
+			details: 'This doesn\'t always mean it was changed, but it usually does.'
+		});
+		eventer.emit('configSaved', this.response);
 	}
 
 }

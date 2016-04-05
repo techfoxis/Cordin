@@ -1,28 +1,34 @@
-var authHandler = require('./lib/auth_handler.js');
-var commandHandler = require('./lib/command_handler.js');
-var configHandler = require('./lib/config_handler.js');
+'use strict'
+
+var authHandler = require('./lib/auth_handler');
+var botHandler = require('./lib/bot_handler');
+var commandHandler = require('./lib/command_handler');
+var configHandler = require('./lib/config_handler');
+var eventHandler = require('./lib/event_handler');
+var logHandler = require('./lib/log_handler');
+var messageHandler = require('./lib/message_handler');
+var client;
 var config;
-var discord = require('discord.js');
-var logHandler = require('./lib/log_handler.js');
-var logger = logHandler.log;
+var log;
+var eventer;
+var run;
 
 if(process.argv[2] == 'init') configHandler.init();
 
-function preInit(callback) {
-	config = configHandler.load();
+configHandler.load();
+config = configHandler.config;
 
-	callback(postInit);
-}
+logHandler.load();
+log = logHandler.log;
 
-function init(callback) {
-	authHandler.login(config.authentication_method, config.email, config.password, config.token);
+eventHandler.load();
+eventer = eventHandler.eventer;
 
-	callback();
-}
+botHandler.load();
+client = botHandler.client;
 
-function postInit() {
-	commandHandler.load();
+commandHandler.load();
+run = commandHandler.invoke;
 
-}
-
-preInit(init);
+authHandler.load(client);
+authHandler.login(config.authentication_method, config.token, config.email, config.password);

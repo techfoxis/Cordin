@@ -4,7 +4,18 @@ require('terminal-colors');
 
 let main = {
 
-	log(type, message, details, label) {
+	load() {
+
+	},
+
+	log(message, type, details, label) {
+		if(typeof message == 'object') {
+			type = message.type;
+			message = message.content;
+			details = message.details;
+			label = message.label;
+		}
+
 		let date = new Date();
 		let time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 
