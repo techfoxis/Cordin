@@ -1,4 +1,7 @@
 # Cordin - WIP - Not All of the features mentioned below are fully implmented
+---
+# WARNING - I am taking a break from this project to pursue other things. Hopefully, in time, I will return.
+---
 Cordin is a framework for Discord bots. It aims to provide the basic framework for a bot and let developers create commands trivialy, and consumers to easily add those commands.
 
 ### Consumer
